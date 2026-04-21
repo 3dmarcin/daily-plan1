@@ -357,7 +357,7 @@ function renderStreak() {
 // ── CHECKLIST ──
 const anchors = [
   { id:"nmt",    label:"Study",    title:"NMT Prep",           detail:"60–75 min · Khan Academy · Uninterrupted",          color:"#e67e22" },
-  { id:"workout",label:"Physical", title:"Workout",            detail:"40 min · Push-ups, squats, lunges, plank — or bike", color:"#c0392b" },
+  { id:"workout",label:"Physical", title:"Workout",            detail:"40 min · Push-ups, squats, plank, leg raises, bicycle crunches — or bike", color:"#c0392b" },
   { id:"reading",label:"Mental",   title:"Philosophy Reading", detail:"30+ min · Epictetus · No screen, just the book",     color:"#2980b9" },
   { id:"eyes",   label:"Health",   title:"Eye Exercises",      detail:"Follow your routine",                                color:"#27ae60" },
 ];
@@ -447,10 +447,10 @@ const weeks = [
   { week:1, label:"Week 1", focus:"Get used to it",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×12",note:"Full. Slow down, explode up."},
-      {name:"Bodyweight Squats",detail:"3×12",note:"Feet shoulder-width. Go deep."},
-      {name:"Stationary Lunges",detail:"3×8 each leg",note:"Step back in place. Keep torso upright."},
-      {name:"Plank",detail:"3×20 sec",note:"Squeeze everything. Don't let hips sag."},
-    ], note:"2 rounds if 3 is too much. Rest until HR drops to ~120 between sets."},
+      {name:"Bodyweight Squats",detail:"5×12",note:"Feet shoulder-width. Go deep. Squeeze core at the top."},
+      {name:"Plank",detail:"3×1 min",note:"Squeeze core hard. Don't let hips sag. Feel it in your abs."},
+      {name:"Leg Raises",detail:"3×10",note:"Lie flat, legs straight. Lower slowly — feel your lower abs working, not your hip flexors."},
+    ], note:"5 squat sets replacing lunges. Rest until HR drops to ~120 between sets."},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"2–3",hr:null,note:"Easy spin."},
       {block:"Main block",duration:"20 min",level:"4",hr:"120–130 bpm",note:"Uncomfortable but sustainable."},
@@ -459,10 +459,10 @@ const weeks = [
   { week:2, label:"Week 2", focus:"Add a few reps",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×15",note:""},
-      {name:"Bodyweight Squats",detail:"3×14",note:""},
-      {name:"Stationary Lunges",detail:"3×10 each leg",note:""},
-      {name:"Plank",detail:"3×25 sec",note:""},
-    ], note:"Full 3 rounds. Rest by feel."},
+      {name:"Bodyweight Squats",detail:"5×14",note:"Core tight throughout. Squeeze at the top."},
+      {name:"Plank",detail:"3×1 min",note:"Focus on core engagement. Breathe steady."},
+      {name:"Leg Raises",detail:"3×12",note:"Slow descent. Lower abs doing the work."},
+    ], note:"Full rounds. Rest by feel."},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"3",hr:null,note:""},
       {block:"Main block",duration:"22 min",level:"4",hr:"120–135 bpm",note:"2 more minutes. Same level."},
@@ -471,22 +471,23 @@ const weeks = [
   { week:3, label:"Week 3", focus:"Push the bike up",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×17",note:""},
-      {name:"Bodyweight Squats",detail:"3×16",note:""},
-      {name:"Stationary Lunges",detail:"3×10 each leg",note:""},
-      {name:"Plank",detail:"3×30 sec",note:""},
+      {name:"Bodyweight Squats",detail:"5×16",note:"Core tight. Squeeze glutes and core at top."},
+      {name:"Plank",detail:"3×1 min 10 sec",note:"10 seconds more. Keep core braced the whole time."},
+      {name:"Leg Raises",detail:"3×14",note:""},
     ], note:"Focus on form not speed."},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"3",hr:null,note:""},
       {block:"Main block",duration:"22 min",level:"5",hr:"125–140 bpm",note:"Level goes up by 1."},
       {block:"Cool-down",duration:"5 min",level:"2",hr:null,note:""},
     ]},
-  { week:4, label:"Week 4", focus:"Switch lunges to walking",
+  { week:4, label:"Week 4", focus:"Increasing volume",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×18",note:""},
-      {name:"Bodyweight Squats",detail:"3×18",note:""},
-      {name:"Walking Lunges",detail:"3×10 each leg",note:"Now walking instead of stationary. Harder."},
-      {name:"Plank",detail:"3×35 sec",note:""},
-    ], note:"Walking lunges will feel like a new exercise. That's fine."},
+      {name:"Bodyweight Squats",detail:"5×18",note:"Core engaged throughout. Don't let it go at the bottom."},
+      {name:"Plank",detail:"3×1 min 20 sec",note:"Core braced. Squeeze abs like you're about to get punched."},
+      {name:"Leg Raises",detail:"3×15",note:""},
+      {name:"Bicycle Crunches",detail:"3×28",note:""},
+    ], note:""},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"3",hr:null,note:""},
       {block:"Main block",duration:"25 min",level:"5",hr:"125–140 bpm",note:"3 more minutes on the main block."},
@@ -495,9 +496,10 @@ const weeks = [
   { week:5, label:"Week 5", focus:"Near your ceiling",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×20",note:"Your old max. Now it's your baseline."},
-      {name:"Bodyweight Squats",detail:"3×20",note:""},
-      {name:"Walking Lunges",detail:"3×12 each leg",note:""},
-      {name:"Plank",detail:"3×45 sec",note:""},
+      {name:"Bodyweight Squats",detail:"5×20",note:"Core tight. Feel the burn in your legs and core both."},
+      {name:"Plank",detail:"3×1 min 30 sec",note:"This is hard. Keep core squeezed. Don't let form break."},
+      {name:"Leg Raises",detail:"3×18",note:""},
+      {name:"Bicycle Crunches",detail:"3×32",note:""},
     ], note:"This should feel hard but doable. You've built to this."},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"3",hr:null,note:""},
@@ -507,10 +509,11 @@ const weeks = [
   { week:6, label:"Week 6", focus:"Leave on a high",
     strength:{ exercises:[
       {name:"Push-ups",detail:"3×max",note:"All out. Write the number down."},
-      {name:"Bodyweight Squats",detail:"3×22",note:""},
-      {name:"Walking Lunges",detail:"3×14 each leg",note:""},
-      {name:"Plank",detail:"3×60 sec",note:"Target is a full minute."},
-    ], note:"Max push-ups tells you exactly how far you've come."},
+      {name:"Bodyweight Squats",detail:"5×22",note:"Core tight every single rep."},
+      {name:"Plank",detail:"3×2 min",note:"Target is 2 full minutes. Core squeezed the entire time."},
+      {name:"Leg Raises",detail:"3×20",note:""},
+      {name:"Bicycle Crunches",detail:"3×36",note:""},
+    ], note:"Max push-ups tells you exactly how far you've come. Track everything."},
     bike:[
       {block:"Warm-up",duration:"5 min",level:"3",hr:null,note:""},
       {block:"Main block",duration:"25 min",level:"6",hr:"130–145 bpm",note:"Consolidate the gain before the move."},
