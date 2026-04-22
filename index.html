@@ -80,6 +80,10 @@
   .streak-sub { font-size: 11px; color: #444; margin-top: 3px; letter-spacing: 0.06em; }
   .streak-best { font-size: 11px; color: #444; text-align: right; letter-spacing: 0.06em; }
   .streak-best strong { color: #555; display: block; font-size: 14px; }
+  .streak-edit-btn { background: none; border: 1px solid #2a2a2a; border-radius: 4px; color: #444; font-size: 13px; padding: 4px 7px; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+  .streak-edit-btn.active { border-color: #f39c12; color: #f39c12; }
+  .streak-adjust { display: flex; gap: 6px; align-items: center; }
+  .streak-adj-btn { width: 32px; height: 32px; border-radius: 6px; border: 1.5px solid #f39c12; background: none; color: #f39c12; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; }
 
   /* ── WORKOUT ── */
   .section { padding: 12px 14px 0; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; max-width: 500px; margin: 0 auto; }
@@ -181,9 +185,14 @@
       <div class="streak-sub" id="streak-sub">Complete all anchors to keep it going</div>
     </div>
     <div class="streak-best" id="streak-best"></div>
+    <div class="streak-adjust" id="streak-adjust" style="display:none">
+      <button class="streak-adj-btn" onclick="adjustStreak(-1)">−</button>
+      <button class="streak-adj-btn" onclick="adjustStreak(1)">+</button>
+    </div>
+    <button class="streak-edit-btn" onclick="toggleStreakEdit()" id="streak-edit-btn">✎</button>
   </div>
   <div class="progress-wrap">
-    <div class="progress-label"><span>Anchors</span><span id="progress-text">0 / 4</span></div>
+    <div class="progress-label"><span>Anchors</span><span id="progress-text">0 / 5</span></div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
   <div class="anchors" id="anchors-list"></div>
@@ -354,12 +363,41 @@ function renderStreak() {
   bestEl.innerHTML = best > 0 ? `<strong>${best}</strong>best` : '';
 }
 
+function toggleStreakEdit() {
+  const adj = document.getElementById('streak-adjust');
+  const btn = document.getElementById('streak-edit-btn');
+  const visible = adj.style.display !== 'none';
+  adj.style.display = visible ? 'none' : 'flex';
+  btn.classList.toggle('active', !visible);
+}
+
+function adjustStreak(delta) {
+  const data = getStreakData();
+  const today = dateStr(new Date());
+  // Build a synthetic streak by adding/removing past dates
+  const current = calcStreak(data.dates);
+  const newStreak = Math.max(0, current + delta);
+  // Rebuild dates array to match desired streak
+  const newDates = data.dates.filter(d => d === today); // keep today if present
+  for (let i = 0; i < newStreak; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const ds = dateStr(d);
+    if (!newDates.includes(ds)) newDates.push(ds);
+  }
+  data.dates = newDates;
+  if (newStreak > (data.best || 0)) data.best = newStreak;
+  saveStreakData(data);
+  renderStreak();
+}
+
 // ── CHECKLIST ──
 const anchors = [
   { id:"nmt",    label:"Study",    title:"NMT Prep",           detail:"60–75 min · Khan Academy · Uninterrupted",          color:"#e67e22" },
   { id:"workout",label:"Physical", title:"Workout",            detail:"40 min · Push-ups, squats, plank, leg raises, bicycle crunches — or bike", color:"#c0392b" },
   { id:"reading",label:"Mental",   title:"Philosophy Reading", detail:"30+ min · Epictetus · No screen, just the book",     color:"#2980b9" },
   { id:"eyes",   label:"Health",   title:"Eye Exercises",      detail:"Follow your routine",                                color:"#27ae60" },
+  { id:"water",  label:"Hydration",title:"Water Intake",       detail:"2.5–3L today · More on workout days",                color:"#1a7ab5" },
 ];
 
 function getChecks() {
